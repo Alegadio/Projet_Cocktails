@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestion des Cocktails</title>   
+    <link rel="stylesheet" href="utilitaires/bootstrap-5.3.3-dist/css/bootstrap.min.css">
+    <!-- Inclure Bootstrap Icons -->
+    <link rel="stylesheet" href="utilitaires/bootstrap-icons-1.8.1/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <!-- jQuery et Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.7.1.js" defer></script> 
+    <script src="utilitaires/bootstrap-5.3.3-dist/js/bootstrap.min.js" defer></script>   
+    <!-- Fichier principal JS -->
+    <script type="module" src="js/global.js" defer></script>
+</head>
+
+<body>
+    <div class="container">
+        <h1 class="text-center mb-4 titre">Gestion des Cocktails</h1>
+         <!-- Bloc de gauche : Select pour trier, Recherche avec loupe, Select pour catégorie -->
+        <nav class="navbar navbar-expand-lg bg-body-tertiary">
+            <div class="container-fluid">
+              <a class="navbar-brand" href="#">Menu</a>
+              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+              <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                 <!-- Select pour trier par ID, Nom ou Verre -->
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">                  
+                    <select class="form-select me-3" name="cocktails" id="trier-cocktails" style="width: 150px;">
+                        <option value=""> Trier par </option>
+                        <option value="tri-id">ID</option>
+                        <option value="tri-nom">Nom</option>
+                        <option value="tri-prix">Prix</option>
+                    </select>                                   
+                </ul>
+                <!-- Select dynamique pour filtrer par type -->
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0 d-flex align-items-lg-center gap-3"> 
+                    <label for="categorie">Filtrer selon:</label>                 
+                    <select class="form-select me-3" name="filtre_cat" id="categorie" style="width: 300px;">
+                        <option value="">--Selectionnez une categorie--</option>
+                        <!-- options affichées dynamiquement -->
+                     </select>                               
+                </ul>
+                <!-- Select dynamique pour filtrer par ingredient -->  
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0 d-flex align-items-lg-center gap-3"> 
+                    <label for="categorie">Filtrer selon l'ingredient:</label>                 
+                    <select class="form-select me-3" name="filtre_cat" id="categ_Ing" style="width: 300px;">
+                        <option value="">--Selectionnez une ingredient--</option>
+                        <!-- options affichées dynamiquement -->                        
+                     </select>                               
+                </ul>                              
+                   <!-- Bouton Ajouter avec une icône plus -->
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">                    
+                         <button class="btn btn-outline-success btn-ajouter" type="button" id="btnModalAjouter" data-bs-target="#modalAjouter">   
+                            <i class="bi bi-plus-square"></i>  Ajouter
+                        </button>
+                </ul>                
+              </div>
+            </div>
+          </nav>   
+
+     <!-- Conteneur pour afficher les éléments -->
+        <div class="content">
+            <div id="contenu"></div>
+            <div id="msg"></div>
+        </div>
+        <!-- Pagination -->
+        <nav aria-label="Pagination des cocktails" class="d-flex justify-content-end">
+            <ul class="pagination" id="pagination"></ul>
+        </nav>
+       
+    </div>
+
+    <!-- Modale pour Ajouter/Modifier -->
+    <div class="modal fade" id="modalAjouter" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalLabel">Ajouter ou modifier cocktail</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="formulaire" class="needs-validation" novalidate>
+                        <input type="hidden" id="id">
+                        <!-- À compléter avec les champs input -->
+                         <!-- Champ pour le nom -->
+                    <div class="mb-3">
+                        <label for="nom" class="form-label">Nom</label>
+                        <input type="text" class="form-control" id="nom" placeholder="Nom du cocktail" required>
+                        <div class="invalid-feedback">Veuillez entrer un nom valide.</div>
+                    </div>
+
+                    <!-- Champ pour le type -->
+                    <div class="mb-3">
+                        <label for="type" class="form-label">Type</label>
+                        <select class="form-select" id="type" required>
+                            <option value="" disabled selected>Choisir un type</option>
+                            <option value="Alcoolisé">Alcoolisé</option>
+                            <option value="Sans alcool">Sans alcool</option>
+                        </select>
+                        <div class="invalid-feedback">Veuillez choisir une categorie.</div>
+                    </div>
+
+                    <!-- Champ pour les ingrédients -->
+                    <div class="mb-3">
+                        <label for="ingredients" class="form-label">Ingrédients</label>
+                        <textarea class="form-control" id="ingredients" rows="3" placeholder="Liste des ingrédients séparés par des virgules" required></textarea>
+                        <div class="invalid-feedback">Veuillez entrer les ingredients correctement.</div>
+                    </div>
+
+                    <!-- Champ pour le prix -->
+                    <div class="mb-3">
+                        <label for="prix" class="form-label">Prix ($)</label>
+                        <input type="number" class="form-control" id="prix" placeholder="Prix du cocktail" min="0.01" step="0.01" required>
+                        <div class="invalid-feedback">Veuillez entrer un prix valide</div>
+                    </div>
+
+                    <!-- Champ pour le lien de l'image -->
+                    <div class="mb-3">
+                        <label for="image" class="form-label">Lien de l'image</label>
+                        <input type="url" class="form-control" id="image" placeholder="URL de l'image" required>
+                        <div class="invalid-feedback">Veuillez entrer une url valide.</div>
+                    </div>
+                        <button type="button" class="btn btn-primary" id="btnAjouter" >Enregistrer</button>
+                    <div class = "invalid-feedback">
+                        Veuillez remplir tous les champs correctement.
+                    </div>
+                    
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast générique pour afficher les messages -->
+    <div class="toast-container position-fixed top-0 start-50 translate-middle-x p-3" style="z-index: 1100;">
+        <div id="toastMessage" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header">
+                <strong id="toastTitle" class="me-auto">Notification</strong>
+                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+            <div class="toast-body">
+                <!-- Insérer le message ici -->
+                <div id="messageContent" class="mb-2"></div>
+    
+                <!-- Boutons de confirmation -->
+                <div class="mt-2">
+                    <button id="btnConfirmer" class="btn btn-danger btn-sm me-2" style="display: none;">Confirmer</button>
+                    <button id="btnAnnuler" class="btn btn-secondary btn-sm" style="display: none;">Annuler</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,93 @@
+/* CSS pour des cards horizontales */
+
+
+.card-horizontal {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.card{
+    padding-top: 10px;
+    padding-bottom: 10px;
+    margin: 2px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.card-img {
+    width: 64px;
+    height: 64px; /* Conserver le ratio */
+}
+
+.card-body {
+    flex: 1;
+    margin-left: 15px;
+    margin-top: 10px;
+    padding: 0px;
+}
+
+.card-body h5 {
+    margin-bottom: 5px;
+    font-size: 1.1rem;
+}
+
+.card-body p {
+    margin-bottom: 5px;
+    font-size: 0.9rem;
+}
+
+/* CSS pour la pagination */
+
+.pagination {
+    margin-top: 15px;
+}
+
+.pagination button {
+    cursor: pointer;
+    font-size: 0.9rem;
+    /* Taille réduite des boutons */
+    padding: 5px 10px;
+    /* Rendre les boutons plus compacts */
+    margin-right: 5px;
+    background-color: #fff;
+}
+
+.pagination button.active {
+    background-color: #007bff;
+    color: white;
+}
+
+.pagination span {
+    font-size: 1rem;
+    padding: 5px 10px;
+}
+
+.buttons {
+    display: flex;
+    gap: 8px;
+    /* Réduire l'espacement entre les boutons */
+    align-items: center;
+}
+
+.btn-modifier,
+.btn-supprimer {
+    font-size: 1rem;
+    padding: 3px;
+    display: none;
+}
+
+.btn-outline-primary, .btn-outline-danger {
+    padding: 5px;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 4px;
+}
+
+.btn-outline-danger {
+    margin-right : 10px;
+}

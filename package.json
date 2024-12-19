@@ -1,0 +1,18 @@
+{
+  "name": "tp3_projet_cocktails",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node serveur/serveurxml.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "xml2js": "^0.6.2"
+  },
+  "author": "",
+  "license": "ISC"
+}
